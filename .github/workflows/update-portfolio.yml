@@ -1,51 +1,36 @@
 name: Deploy Gitfolio Portfolio to GitHub Pages
 
 on:
-  # Trigger the workflow when pushing to the main branch
   push:
-    branches: ["main"]
-
-  # Allow the workflow to be triggered manually from the Actions tab
+    branches:
+      - main
   workflow_dispatch:
 
-permissions:
-  contents: read  # Read permission to access repository content
-  pages: write    # Write permission to deploy to GitHub Pages
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false  # Don't cancel ongoing deployments
-
 jobs:
-  # Build job
-  build:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '16'  # Adjust if needed based on the version of Node.js you're using
+          node-version: '16'
 
       - name: Install Gitfolio globally
-        run: |
-          npm install -g gitfolio  # Install Gitfolio globally using npm
+        run: npm install -g gitfolio
 
       - name: Generate Gitfolio Portfolio
-        run: |
-          gitfolio build smtbhd32 --sort created --order desc  # Run the Gitfolio update command to generate the HTML/CSS files
-
-      - name: Set up Git for pushing changes
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+        run: gitfolio build smtbhd32 --sort created --order desc
 
       - name: Commit and push changes
-        run: |
-          git add -A  # Stage all changes
-          git commit -m "Update Gitfolio portfolio" || echo "No changes to commit"  # Commit changes
-          git push https://github.com/${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} HEAD:gmain  # Push to gh-pages branch
-          echo ${{ secrets.GH_TOKEN }}
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: '.'  # Add all changes in the current directory
+          author_name: "GitHub Actions Bot"
+          author_email: "actions@github.com"
+          message: "Update Gitfolio portfolio"
+          push: '--force'  # Force push to ensure updates are applied to the branch
+          new_branch: gh-pages  # Push changes to the gh-pages branch
