@@ -1,0 +1,41 @@
+name: Auto Update Gitfolio
+
+on:
+  schedule:
+    # Runs once a day at midnight UTC
+    - cron: "0 0 * * *"
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  update-portfolio:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js (Gitfolio requires Node.js to run)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14' # Use the appropriate version Gitfolio supports
+
+      # Install dependencies (assuming Gitfolio uses npm)
+      - name: Install dependencies
+        run: npm i gitfolio -g
+        
+      # Run the Gitfolio generation script
+      - name: Generate Gitfolio Portfolio
+        run: gitfolio update # or the equivalent command to generate HTML/CSS files
+
+      # Commit the updated files
+      - name: Commit changes
+        run: |
+          git config --global user.name "Sumit Bhardwaj"
+          git config --global user.email "smtbhd32@gmail.com"
+          git add .
+          git commit -m "Update Gitfolio portfolio"
+          git push origin main
