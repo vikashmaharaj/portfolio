@@ -28,9 +28,8 @@ jobs:
       - name: Commit and push changes
         uses: EndBug/add-and-commit@v9
         with:
-          add: '.'  # Add all changes in the current directory
+          add: '.'
           author_name: "GitHub Actions Bot"
           author_email: "actions@github.com"
           message: "Update Gitfolio portfolio"
-          push: '--force'  # Force push to ensure updates are applied to the branch
-          new_branch: gh-pages  # Push changes to the gh-pages branch
+          push: '--set-upstream origin gh-pages'  # Automatically sets the upstream branch
