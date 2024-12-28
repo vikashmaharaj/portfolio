@@ -34,23 +34,29 @@ jobs:
         run: |
           npm install -g gitfolio  # Install Gitfolio globally using npm
 
+      - name: Install dependencies
+        run: |
+          npm install  # Install other dependencies if needed (e.g., if you have package.json)
+
       - name: Generate Gitfolio Portfolio
         run: |
-          gitfolio update  # Run the Gitfolio update command to generate the HTML/CSS files
+          gitfolio build smtbhd32 --sort created --order desc  # Run the Gitfolio update command to generate the HTML/CSS files
 
-      - name: Upload build artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out  # Adjust the path if your build output is in a different folder (e.g., dist/)
+      - name: Set up Git for pushing changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
 
-  # Deployment job
+      - name: Commit and push changes
+        run: |
+          git add -A  # Stage all changes
+          git commit -m "Update Gitfolio portfolio" || echo "No changes to commit"  # Commit changes
+          git push https://github.com/${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:gh-pages  # Push to gh-pages branch
+
+  # Deployment job (optional)
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Verify deployed portfolio URL
+        run: echo "Portfolio is live at https://$GITHUB_ACTOR.github.io/${{ github.repository }}"
