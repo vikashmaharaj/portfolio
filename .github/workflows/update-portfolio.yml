@@ -1,39 +1,45 @@
-name: Deploy Gitfolio Portfolio to GitHub Pages
+name: Build and Deploy Gitfolio
 
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - main  # Replace with the branch you want to trigger the workflow
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}  # Default token for authentication
+        uses: actions/checkout@v3
 
+      # Step 2: Pull the latest changes from the repository
+      - name: Pull latest changes
+        run: |
+          git fetch origin
+          git reset --hard origin/main  # Replace 'main' with your default branch
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '16'
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install gitfolio -g
 
-      - name: Install Gitfolio globally
-        run: npm install -g gitfolio
-
+      # Step 4: Generate Gitfolio Portfolio
       - name: Generate Gitfolio Portfolio
-        run: gitfolio build smtbhd32 --sort created --order desc
+        run: gitfolio update
 
-      - name: Commit and push changes
-        uses: EndBug/add-and-commit@v9
+      # Step 5: Commit and push changes
+      - name: Commit and Push Changes
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Update Gitfolio portfolio"
+          git push origin main  # Push changes back to the main branch
+
+      # Step 6: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          add: '.'
-          author_name: "GitHub Actions Bot"
-          author_email: "actions@github.com"
-          message: "Update Gitfolio portfolio"
-          push: '--force origin main'  # Push changes directly to the main branch
-      
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist  # Replace with the directory containing generated files
