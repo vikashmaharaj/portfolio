@@ -29,7 +29,7 @@ jobs:
         
       # Run the Gitfolio generation script
       - name: Generate Gitfolio Portfolio
-        run: gitfolio update # or the equivalent command to generate HTML/CSS files
+        run: gitfolio build smtbhd32 --sort created --order desc
 
       # Commit the updated files
       - name: Commit changes
