@@ -3,7 +3,11 @@ name: Build and Deploy Gitfolio
 on:
   push:
     branches:
-      - main  # Replace with the branch you want to trigger the workflow
+      - main  # Trigger on push to the main branch
+
+  schedule:
+    - cron: "*/10 * * * *"  # Run every 10 minutes
+
 
 jobs:
   deploy:
