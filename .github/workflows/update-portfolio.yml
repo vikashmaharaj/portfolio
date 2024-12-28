@@ -42,3 +42,6 @@ jobs:
           git add .
           git commit -m "Update Gitfolio portfolio"
           git push https://${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
+          echo "GH_TOKEN=$GH_TOKEN"
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
