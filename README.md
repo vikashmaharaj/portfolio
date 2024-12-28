@@ -101,47 +101,56 @@ To set up automated updates using GitHub Actions, enable the workflow permission
 Here’s an example workflow that runs every 10 minutes to update the portfolio:
 
 ```yaml
-name: Deploy Gitfolio Portfolio
+name: Build and Deploy Gitfolio
 
 on:
   push:
     branches:
-      - main
+      - main  # Trigger on push to the main branch
+
   schedule:
     - cron: "*/10 * * * *"  # Run every 10 minutes
+
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      # Step 1: Checkout the repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js (for Gitfolio)
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+      # Step 2: Pull the latest changes from the repository
+      - name: Pull latest changes
+        run: |
+          git fetch origin
+          git reset --hard origin/main  # Replace 'main' with your default branch
 
-      - name: Install Gitfolio
-        run: npm install -g gitfolio
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install gitfolio -g
 
+      # Step 4: Generate Gitfolio Portfolio
       - name: Generate Gitfolio Portfolio
-        run: gitfolio build <username>
+        run: gitfolio update
 
+      # Step 5: Commit and push changes
       - name: Commit and Push Changes
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
-          git add -A
+          git add .
           git commit -m "Update Gitfolio portfolio" || echo "No changes to commit"
           git push origin main
 
+
+      # Step 6: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # Adjust if your output directory is different
+          publish_dir: ./dist  # Replace with the directory containing generated files
 ```
 
 ### Step 6: Deploy to GitHub Pages
