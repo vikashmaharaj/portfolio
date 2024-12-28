@@ -1,9 +1,3 @@
-I see! You are asking for a more general explanation about GitHub Pages and GitHub Actions for deploying the portfolio, rather than referring to a specific repository.
-
-Here’s how to set up **GitHub Pages** and **GitHub Actions** for your personal GitHub portfolio:
-
----
-
 ## Self-Updating Portfolio with Gitfolio & GitHub Actions
 
 ### Overview
