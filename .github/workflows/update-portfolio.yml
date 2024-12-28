@@ -47,12 +47,5 @@ jobs:
         run: |
           git add -A  # Stage all changes
           git commit -m "Update Gitfolio portfolio" || echo "No changes to commit"  # Commit changes
-          git push https://github.com/${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} HEAD:gh-pages  # Push to gh-pages branch
-
-  # Deployment job (optional)
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Verify deployed portfolio URL
-        run: echo "Portfolio is live at https://$GITHUB_ACTOR.github.io/${{ github.repository }}"
+          git push https://github.com/${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} HEAD:gmain  # Push to gh-pages branch
+          echo ${{ secrets.GH_TOKEN }}
