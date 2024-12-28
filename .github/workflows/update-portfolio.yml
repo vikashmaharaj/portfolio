@@ -34,10 +34,6 @@ jobs:
         run: |
           npm install -g gitfolio  # Install Gitfolio globally using npm
 
-      - name: Install dependencies
-        run: |
-          npm install  # Install other dependencies if needed (e.g., if you have package.json)
-
       - name: Generate Gitfolio Portfolio
         run: |
           gitfolio update  # Run the Gitfolio update command to generate the HTML/CSS files
