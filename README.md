@@ -1,7 +1,5 @@
 # Self-Updating Portfolio with Gitfolio & GitHub Actions
 
-## Overview
-
 This solution combines **Gitfolio** with **GitHub Actions** to create a fully automated system that keeps your portfolio fresh and up-to-date. With this setup, your GitHub acts as the source of your portfolio content, and GitHub Actions handles automatic updates and deployments to GitHub Pages.
 
 ## How This Works
