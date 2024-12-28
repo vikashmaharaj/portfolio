@@ -1,48 +1,60 @@
-name: Update Gitfolio Portfolio
+name: Deploy Gitfolio Portfolio to GitHub Pages
 
 on:
+  # Trigger the workflow when pushing to the main branch
   push:
-    branches:
-      - main
+    branches: ["main"]
+
+  # Allow the workflow to be triggered manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read  # Read permission to access repository content
+  pages: write    # Write permission to deploy to GitHub Pages
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false  # Don't cancel ongoing deployments
 
 jobs:
+  # Build job
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Print environment variables
-      run: |
-        echo "GH_TOKEN=$GH_TOKEN"
-        env
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'  # Adjust if needed based on the version of Node.js you're using
 
-    - name: Check Git configuration
-      run: |
-        git config --list
+      - name: Install Gitfolio globally
+        run: |
+          npm install -g gitfolio  # Install Gitfolio globally using npm
 
-    - name: Print repository information
-      run: |
-        echo "Repository: ${{ github.repository }}"
-        echo "Ref: ${{ github.ref }}"
-        echo "SHA: ${{ github.sha }}"
+      - name: Install dependencies
+        run: |
+          npm install  # Install other dependencies if needed (e.g., if you have package.json)
 
-    - name: Create test file for pushing
-      run: |
-        echo "Test file created at $(date)" > test-file.txt
-        git add test-file.txt
-        git commit -m "Add test file"
-        git push https://${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
+      - name: Generate Gitfolio Portfolio
+        run: |
+          gitfolio update  # Run the Gitfolio update command to generate the HTML/CSS files
 
-    - name: Generate Gitfolio Portfolio
-      run: |
-        # Commands to generate the portfolio (e.g., npm install, build, etc.)
-    
-    - name: Commit and Push changes
-      run: |
-        git add .
-        git commit -m "Update Gitfolio portfolio"
-        git push https://${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out  # Adjust the path if your build output is in a different folder (e.g., dist/)
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
