@@ -47,7 +47,7 @@ jobs:
         run: |
           git add -A  # Stage all changes
           git commit -m "Update Gitfolio portfolio" || echo "No changes to commit"  # Commit changes
-          git push https://github.com/${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:gh-pages  # Push to gh-pages branch
+          git push https://github.com/${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} HEAD:gh-pages  # Push to gh-pages branch
 
   # Deployment job (optional)
   deploy:
