@@ -1,47 +1,48 @@
-name: Auto Update Gitfolio
+name: Update Gitfolio Portfolio
 
 on:
-  schedule:
-    # Runs once a day at midnight UTC
-    - cron: "0 0 * * *"
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
-  update-portfolio:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      # Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      # Set up Node.js (Gitfolio requires Node.js to run)
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14' # Use the appropriate version Gitfolio supports
+    - name: Print environment variables
+      run: |
+        echo "GH_TOKEN=$GH_TOKEN"
+        env
 
-      # Install dependencies (assuming Gitfolio uses npm)
-      - name: Install dependencies
-        run: npm i gitfolio -g
-        
-      # Run the Gitfolio generation script
-      - name: Generate Gitfolio Portfolio
-        run: gitfolio build smtbhd32 --sort created --order desc
+    - name: Check Git configuration
+      run: |
+        git config --list
 
-        # Configure Git with the actions bot's name and email
-      - name: Configure Git
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+    - name: Print repository information
+      run: |
+        echo "Repository: ${{ github.repository }}"
+        echo "Ref: ${{ github.ref }}"
+        echo "SHA: ${{ github.sha }}"
 
-      - name: Commit and Push changes
-        run: |
-          git add .
-          git commit -m "Update Gitfolio portfolio"
-          git push https://${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
-          echo "GH_TOKEN=$GH_TOKEN"
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    - name: Create test file for pushing
+      run: |
+        echo "Test file created at $(date)" > test-file.txt
+        git add test-file.txt
+        git commit -m "Add test file"
+        git push https://${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
+
+    - name: Generate Gitfolio Portfolio
+      run: |
+        # Commands to generate the portfolio (e.g., npm install, build, etc.)
+    
+    - name: Commit and Push changes
+      run: |
+        git add .
+        git commit -m "Update Gitfolio portfolio"
+        git push https://${GH_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
