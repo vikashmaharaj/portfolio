@@ -6,9 +6,13 @@
   "sort": "created",
   "order": "desc",
   "includeFork": false,
-  "theme": "light.css",
+  "theme": "dark.css",
   "types": [
-   "all"
-  ]
+   "owner"
+  ],
+  "twitter": "smtbhd32",
+  "linkedin": "smtbhd32",
+  "medium": "smtbhd32",
+  "dribbble": "smtbhd32"
  }
 ]
