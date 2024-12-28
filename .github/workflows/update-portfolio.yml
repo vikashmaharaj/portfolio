@@ -32,4 +32,5 @@ jobs:
           author_name: "GitHub Actions Bot"
           author_email: "actions@github.com"
           message: "Update Gitfolio portfolio"
-          push: '--set-upstream origin gh-pages'  # Automatically sets the upstream branch
+          push: '--force origin main'  # Push changes directly to the main branch
+      
