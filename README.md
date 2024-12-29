@@ -2,6 +2,17 @@
 
 This solution combines **Gitfolio** with **GitHub Actions** to create a fully automated system that keeps your portfolio fresh and up-to-date. With this setup, your GitHub repository acts as the source of your portfolio content, and GitHub Actions handles automatic updates and deployments to GitHub Pages.
 
+### How to Build Your Own Portfolio
+
+Watch the video below to learn how to create your own portfolio using this repository:
+
+<p align="center">
+  <a href="https://youtu.be/179Th4PGZng" target="_blank">
+    <img src="https://github.com/smtbhd32/portfolio/raw/main/video%20thumbnail.png" alt="Watch the video" width="80%" height="auto" />
+  </a>
+</p>
+
+
 ### **How This Works**
 
 This system uses **Gitfolio** and **GitHub Actions** to automate the creation, update, and deployment of your portfolio:
