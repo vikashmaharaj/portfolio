@@ -16,12 +16,12 @@ This system uses **Gitfolio** and **GitHub Actions** to automate the creation, u
 
 ### **Why Choose This Approach?**
 
-This setup eliminates the need for manual updates to your portfolio. GitHub Actions runs every 10 minutes to ensure your portfolio stays current without any effort on your part!
+This setup eliminates the need for manual updates to your portfolio. GitHub Actions runs every 10 minutes to ensure your portfolio stays current with your GitHub, without any effort on your part!
 
 ### **Customization and Extensibility**
 
 - **Custom Branch**: If you want to deploy from a branch other than `main` (e.g., `gh-pages`), simply adjust the workflow and GitHub Pages settings.
-- **Customize Portfolio Layout**: Modify the `.gitfolio.yml` file to change the design, add sections, or filter repositories.
+- **Customize Portfolio Layout**: Modify the `config.json` file to change the design, add sections, or filter repositories.
 - **Frequent Updates**: Adjust the frequency of the GitHub Actions workflow if you need it to run more or less frequently.
 
 ### **Setup Instructions**
