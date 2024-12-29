@@ -4,7 +4,7 @@ This solution combines **Gitfolio** with **GitHub Actions** to create a fully au
 
 ### How to Build Your Own Portfolio
 
-Watch the video below to learn how to create your own portfolio using this repository:
+Watch the video below to learn how to create your own **self-updating portfolio** using this repository:
 
 <p align="center">
   <a href="https://youtu.be/179Th4PGZng" target="_blank">
