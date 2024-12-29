@@ -1,36 +1,30 @@
-## Self-Updating Portfolio with Gitfolio & GitHub Actions
+## **Self-Updating Portfolio with Gitfolio & GitHub Actions**
 
 This solution combines **Gitfolio** with **GitHub Actions** to create a fully automated system that keeps your portfolio fresh and up-to-date. With this setup, your GitHub repository acts as the source of your portfolio content, and GitHub Actions handles automatic updates and deployments to GitHub Pages.
 
-
-## How This Works
+### **How This Works**
 
 This system uses **Gitfolio** and **GitHub Actions** to automate the creation, update, and deployment of your portfolio:
 
 1. **Scheduled Updates**: GitHub Actions runs every 10 minutes to ensure your portfolio stays updated.
 2. **Effortless Deployment**: The workflow automatically deploys the updated portfolio to GitHub Pages, ensuring it's live 24/7.
 
-
-## Features
+### **Features**
 
 - **Self-Updating & Automated Deployment**: The system automatically updates your portfolio every 10 minutes and deploys the changes to GitHub Pages, making it accessible online without manual intervention.
 - **Easy Customization**: Customize your portfolio's layout and content by modifying Gitfolio's settings to match your personal style.
 
-
-## Why Choose This Approach?
+### **Why Choose This Approach?**
 
 This setup eliminates the need for manual updates to your portfolio. GitHub Actions runs every 10 minutes to ensure your portfolio stays current without any effort on your part!
 
-
-## Customization and Extensibility
+### **Customization and Extensibility**
 
 - **Custom Branch**: If you want to deploy from a branch other than `main` (e.g., `gh-pages`), simply adjust the workflow and GitHub Pages settings.
 - **Customize Portfolio Layout**: Modify the `.gitfolio.yml` file to change the design, add sections, or filter repositories.
 - **Frequent Updates**: Adjust the frequency of the GitHub Actions workflow if you need it to run more or less frequently.
 
----
-
-## Setup Instructions
+### **Setup Instructions**
 
 1. **Fork the Repository**: Fork this repository to your GitHub account.
 2. **Enable GitHub Actions**: 
@@ -39,6 +33,7 @@ This setup eliminates the need for manual updates to your portfolio. GitHub Acti
 3. **Edit Config File**: 
    - Open the `dist/config.json` file and update it with your GitHub username and preferences. 
    - Below is a sample configuration for reference:
+   
    ```json
    [
      {
@@ -57,6 +52,7 @@ This setup eliminates the need for manual updates to your portfolio. GitHub Acti
      }
    ]
    ```
+
 4. **Repository Settings**:
    - Go to **Settings** > **Pages**.
    - Set **Source** to `gh-pages` branch and save.
@@ -64,10 +60,8 @@ This setup eliminates the need for manual updates to your portfolio. GitHub Acti
 
 5. **Your Portfolio is Live!**: After reloading, your portfolio will be live at `https://your-github-username.github.io/portfolio/`.
 
----
-
-## Credits
+### **Credits**
 
 This solution relies on **[Gitfolio](https://github.com/imfunniee/gitfolio)** and **GitHub Actions** for automation. Special thanks to the developers of Gitfolio for creating such an amazing tool to easily build portfolios from GitHub repositories.
 
----
+Now, you can have a **fully automated, self-updating portfolio** that keeps track of your GitHub contributions, projects, and more! 💼✨
