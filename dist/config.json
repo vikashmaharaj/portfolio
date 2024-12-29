@@ -7,9 +7,7 @@
   "order": "desc",
   "includeFork": false,
   "theme": "dark.css",
-  "types": [
-   "owner"
-  ],
+  "types": ["owner"],
   "twitter": "smtbhd32",
   "linkedin": "smtbhd32",
   "medium": "smtbhd32",
