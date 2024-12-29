@@ -2,7 +2,6 @@
 
 This solution combines **Gitfolio** with **GitHub Actions** to create a fully automated system that keeps your portfolio fresh and up-to-date. With this setup, your GitHub repository acts as the source of your portfolio content, and GitHub Actions handles automatic updates and deployments to GitHub Pages.
 
----
 
 ## How This Works
 
@@ -11,20 +10,17 @@ This system uses **Gitfolio** and **GitHub Actions** to automate the creation, u
 1. **Scheduled Updates**: GitHub Actions runs every 10 minutes to ensure your portfolio stays updated.
 2. **Effortless Deployment**: The workflow automatically deploys the updated portfolio to GitHub Pages, ensuring it's live 24/7.
 
----
 
 ## Features
 
 - **Self-Updating & Automated Deployment**: The system automatically updates your portfolio every 10 minutes and deploys the changes to GitHub Pages, making it accessible online without manual intervention.
 - **Easy Customization**: Customize your portfolio's layout and content by modifying Gitfolio's settings to match your personal style.
 
----
 
 ## Why Choose This Approach?
 
 This setup eliminates the need for manual updates to your portfolio. GitHub Actions runs every 10 minutes to ensure your portfolio stays current without any effort on your part!
 
----
 
 ## Customization and Extensibility
 
